@@ -22,10 +22,15 @@ namespace FormsCurvedBottomNavigation
             customizedTab = new CurvedBottomNavigationView();
         }
 
+        public override void ViewDidAppear(bool animated)
+        {
+            base.ViewDidAppear(animated);
+            CreatingTabBar();
+        }
+
         public override void ViewDidLayoutSubviews()
         {
             base.ViewDidLayoutSubviews();
-            CreatingTabBar();
         }
 
 
@@ -46,8 +51,10 @@ namespace FormsCurvedBottomNavigation
                 View.WillRemoveSubview(this.appButton);
             }
 
-            this.TabBar.RemoveFromSuperview();
-            View.WillRemoveSubview(this.TabBar);
+            TabBar.BackgroundColor = Color.Red.ToUIColor();
+            TabBar.Alpha = 0;
+           // this.TabBar.RemoveFromSuperview();
+           //   View.WillRemoveSubview(this.TabBar);
 
             customizedTab.Frame = this.TabBar.Frame;
             customizedTab.Items = this.TabBar.Items;
@@ -96,12 +103,12 @@ namespace FormsCurvedBottomNavigation
             {
                 SetMenuItemsForTablet();
             }
-
+            View.Add(customizedTab);
+            View.Add(appButton);
             //Adds the Button to the view
             if (View.Subviews.Length == 1)
             {
-                View.Add(customizedTab);
-                View.Add(appButton);
+               
             }
         }
 
